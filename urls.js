@@ -20,7 +20,6 @@ function readFile(filePath) {
 
     const urls = data.split('\n').filter(line => line.trim() !== "");
 
-    // 🚀 BONUS: Download all at once
     await Promise.all(urls.map(url => fetchAndSave(url.trim())));
   });
 }
@@ -44,7 +43,7 @@ async function fetchAndSave(url) {
         console.log(`Wrote to ${hostname}`);
       }
     });
-  } catch (err) {
+  } catch {
     console.error(`Couldn't download ${url}`);
   }
 }

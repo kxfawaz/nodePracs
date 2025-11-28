@@ -4,11 +4,12 @@ const axios = require("axios");
 const app = express();
 app.use(express.json());
 
+// Helper for requesting GitHub user info
 async function getGithubUser(username) {
   try {
     const res = await axios.get(`https://api.github.com/users/${username}`);
     return { name: res.data.name, bio: res.data.bio };
-  } catch (err) {
+  } catch {
     return { error: `User '${username}' not found` };
   }
 }
@@ -27,6 +28,7 @@ app.post("/", async function (req, res, next) {
   }
 });
 
+// Standard error handler
 app.use(function (err, req, res, next) {
   console.error(err.stack);
   res.status(500).json({ error: "Internal Server Error" });

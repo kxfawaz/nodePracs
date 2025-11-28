@@ -1,8 +1,16 @@
 # Broken App Issues
-- changed var app = express() to const app = express() -->
-- change let to const for axios import -->
-- fix the app.listen function, was missing the callback function -->
-- missing app.use(express.json()); since we want to parse json -->
-- add Promise.all() to results since without it its returning a promise and not actual values 
-- catch did not have catch(err) -->
--  was not an async function ,added async -->
+# Broken App Fix Summary
+
+## Bug Fixes
+- Added `app.use(express.json())` so the server can parse JSON bodies
+- Wrapped route in `async`/`await` so GitHub requests resolve properly
+- Added error handler middleware to avoid crashing on failures
+- Removed `JSON.stringify` since `res.json()` handles this automatically
+
+## Refactoring Improvements
+- Created a helper function `getGithubUser()` to keep route clean
+- Added validation: request must include `developers` array
+- Gracefully handle GitHub 404/user-not-found errors
+- Improved logging and returned JSON formatting
+
+These changes follow Express best practices and ensure the app behaves correctly.
